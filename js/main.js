@@ -4,16 +4,18 @@ const searchForm = document.getElementById('search-form');
 
 function apiSearch(event) {
   event.preventDefault();
-  const searchText = document.querySelector('.form-control');
+  const searchText = document.querySelector('.form-control').value;
 
   const requestUrl = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=ru-RU&query=${searchText}&include_adult=false`;
-
-  console.log(searchText);  
-  const responseServer = Promise.resolve(getServerData(requestUrl));
-  console.log(responseServer);
+ 
+  getServerData(requestUrl).then(function(data) {
+    const searchingResultsData = JSON.parse(data).results;
+    console.log(searchingResultsData);
+  }, function(error) {console.error()});
+  // console.log(requestUrl);
+  
 }
 
-searchForm.addEventListener('submit', apiSearch);
 
 function getServerData(url) {
   const makeRequest = new Promise(function (resolve, reject) {
@@ -31,3 +33,10 @@ function getServerData(url) {
   });
   return makeRequest;
 }
+
+function renderData(data) {
+  console.log(data);
+}
+
+
+searchForm.addEventListener('submit', apiSearch);
