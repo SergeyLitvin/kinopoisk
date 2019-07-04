@@ -51,7 +51,7 @@ function renderData(data) {
 
   data.forEach((el) => {
     let nameEl = el.name || el.title;
-    let imgUrl = 'https://image.tmdb.org/t/p/w500/'
+    let imgUrl = 'https://image.tmdb.org/t/p/w500/';
     listMovies += `
       <article class="col-xs-12 col-md-6">
         <h1>${nameEl}</h1>
