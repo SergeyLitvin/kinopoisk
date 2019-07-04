@@ -1,7 +1,14 @@
+/* ==================================================
+Base constants
+================================================== */
 const apiKey = '1b881d5b372353011a0eae96576a19ca';
 const searchForm = document.getElementById('search-form');
 const movies = document.getElementById('movies');
 
+
+/* ==================================================
+Link formation from input parameters
+================================================== */
 function buildingLink(event) {
   event.preventDefault();
   const searchText = document.querySelector('.form-control').value;
@@ -9,9 +16,11 @@ function buildingLink(event) {
   const requestUrl = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=ru-RU&query=${searchText}&include_adult=false`;
 
   return requestUrl;
-
 }
 
+/* ==================================================
+Receiving data from server
+================================================== */
 function getServerData(url) {
   const makeRequest = new Promise(function (resolve, reject) {
 
@@ -25,11 +34,17 @@ function getServerData(url) {
       }
     };
     xhr.send();
+
   });
   return makeRequest;
 }
 
+
+/* ==================================================
+Generating html from the data array
+================================================== */
 function renderData(data) {
+
   movies.innerHTML = 'Загрузка результатов поиска...';
 
   let listMovies = '';
@@ -45,25 +60,26 @@ function renderData(data) {
     `;
 
   });
-
   movies.innerHTML = listMovies;
-
 }
 
 
-// Запуск программы поиска
+/* ==================================================
+Start program
+================================================== */
 searchForm.addEventListener('submit', function() {
+
   const url = buildingLink(event);
 
   if (typeof url === 'string') {
-    const listVideo = getServerData(url).then(function(data) {
+    const listVideo = getServerData(url, error)
+    .then(function(data) {
       const searchingResultsData = JSON.parse(data).results;
-
       if(typeof searchingResultsData === 'object') {
         renderData(searchingResultsData);
       }
-
-    });  
-  
+    }, (error) => console.log(error));
+    
   }
+
 });
