@@ -1,41 +1,16 @@
-
 const apiKey = '1b881d5b372353011a0eae96576a19ca';
 const searchForm = document.getElementById('search-form');
 const movies = document.getElementById('movies');
 
-function apiSearch(event) {
+function buildingLink(event) {
   event.preventDefault();
   const searchText = document.querySelector('.form-control').value;
 
   const requestUrl = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=ru-RU&query=${searchText}&include_adult=false`;
-  
-  movies.innerHTML = 'Загрузка результатов поиска...';
 
-  const serverData = getServerData(requestUrl).then(function(data) {
-    const searchingResultsData = JSON.parse(data).results;
+  return requestUrl;
 
-    let listMovies = '';
-    searchingResultsData.forEach((el) => {
-      let nameEl = el.name || el.title;
-      let imgUrl = 'https://image.tmdb.org/t/p/w500/'
-      listMovies += `
-      <article class="col-xs-12 col-md-6">
-        <h1>${nameEl}</h1>
-        <img src="${imgUrl + el.poster_path}">
-      </article>
-    `;
-
-      movies.innerHTML = listMovies;
-    });
-    
-    console.log(searchingResultsData);
-    // return searchingResultsData;
-
-  }, function(error) {console.error()});
-  // console.log(requestUrl);
-  return serverData;
 }
-
 
 function getServerData(url) {
   const makeRequest = new Promise(function (resolve, reject) {
@@ -55,8 +30,40 @@ function getServerData(url) {
 }
 
 function renderData(data) {
-  console.log(data);
+  movies.innerHTML = 'Загрузка результатов поиска...';
+
+  let listMovies = '';
+
+  data.forEach((el) => {
+    let nameEl = el.name || el.title;
+    let imgUrl = 'https://image.tmdb.org/t/p/w500/'
+    listMovies += `
+      <article class="col-xs-12 col-md-6">
+        <h1>${nameEl}</h1>
+        <img src="${imgUrl + el.poster_path}">
+      </article>
+    `;
+
+  });
+
+  movies.innerHTML = listMovies;
+
 }
 
 
-searchForm.addEventListener('submit', apiSearch);
+// Запуск программы поиска
+searchForm.addEventListener('submit', function() {
+  const url = buildingLink(event);
+
+  if (typeof url === 'string') {
+    const listVideo = getServerData(url).then(function(data) {
+      const searchingResultsData = JSON.parse(data).results;
+
+      if(typeof searchingResultsData === 'object') {
+        renderData(searchingResultsData);
+      }
+
+    });  
+  
+  }
+});
