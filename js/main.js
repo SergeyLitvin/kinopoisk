@@ -72,7 +72,7 @@ searchForm.addEventListener('submit', function() {
   const url = buildingLink(event);
 
   if (typeof url === 'string') {
-    const listVideo = getServerData(url, error)
+    const listVideo = getServerData(url)
     .then(function(data) {
       const searchingResultsData = JSON.parse(data).results;
       if(typeof searchingResultsData === 'object') {
