@@ -54,6 +54,10 @@ function renderData(data) {
       <article class="col-xs-12 col-md-6">
         <h1>${nameEl}</h1>
         <img src="${imgUrl + el.poster_path}">
+        <div class="descript">
+          <span class="year">Год: ${el.release_date.slice(0, 4)}</span> 
+          <span class="rating">Рейтинг: ${el.vote_average}</span>  
+        </div>
       </article>
     `;
 
