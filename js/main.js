@@ -51,12 +51,12 @@ function renderData(data) {
     let nameEl = el.name || el.title;
     let imgUrl = 'https://image.tmdb.org/t/p/w500/';
     listMovies += `
-      <article class="col-xs-12 col-md-6">
+      <article class="col-xs-12 col-md-6 card-films">
         <h1>${nameEl}</h1>
         <img src="${imgUrl + el.poster_path}">
-        <div class="descript">
-          <span class="year">Год: ${el.release_date}</span> 
-          <span class="rating">Рейтинг: ${el.vote_average}</span>  
+        <div class="descript d-flex justify-content-between">
+          <strong class="year">Год: ${el.release_date}</strong> 
+          <strong class="rating">Рейтинг: ${el.vote_average}</strong>  
         </div>
       </article>
     `;
