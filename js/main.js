@@ -5,7 +5,6 @@ const apiKey = '1b881d5b372353011a0eae96576a19ca';
 const searchForm = document.getElementById('search-form');
 const movies = document.getElementById('movies');
 
-
 /* ==================================================
 Link formation from input parameters
 ================================================== */
@@ -39,7 +38,6 @@ function getServerData(url) {
   return makeRequest;
 }
 
-
 /* ==================================================
 Generating html from the data array
 ================================================== */
@@ -62,7 +60,6 @@ function renderData(data) {
   });
   movies.innerHTML = listMovies;
 }
-
 
 /* ==================================================
 Start program
