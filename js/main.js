@@ -52,7 +52,7 @@ function renderData(data) {
     let imgUrl = 'https://image.tmdb.org/t/p/w500/';
     let releaseDate = el.release_date || 'Неизвестен';
     listMovies += `
-      <article class="col-xs-12 col-md-6 card-films">
+      <article class="col-xs-12 col-sm-6 col-md-4 col-lg-3 card-films">
         <h1>${nameEl}</h1>
         <img class="img-responsive" src="${imgUrl + el.poster_path}">
         <div class="descript d-flex justify-content-between">

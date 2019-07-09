@@ -8,11 +8,17 @@ img, .img-responsive {
     text-align: center;
 }
 
+.card-films {
+    display: flex;
+    flex-direction: column;
+}
+
 .card-films h1 {
     font-size: 24px;
 }
 
 .descript {
+    margin-top: auto;
     padding: 10px 0;
 }
 
