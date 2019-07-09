@@ -50,12 +50,13 @@ function renderData(data) {
   data.forEach((el) => {
     let nameEl = el.name || el.title;
     let imgUrl = 'https://image.tmdb.org/t/p/w500/';
+    let releaseDate = el.release_date || 'Неизвестен';
     listMovies += `
       <article class="col-xs-12 col-md-6 card-films">
         <h1>${nameEl}</h1>
-        <img src="${imgUrl + el.poster_path}">
+        <img class="img-responsive" src="${imgUrl + el.poster_path}">
         <div class="descript d-flex justify-content-between">
-          <strong class="year">Год: ${el.release_date}</strong> 
+          <strong class="year">Год: ${releaseDate}</strong> 
           <strong class="rating">Рейтинг: ${el.vote_average}</strong>  
         </div>
       </article>
