@@ -46,6 +46,8 @@ function renderData(data) {
   movies.innerHTML = 'Загрузка результатов поиска...';
 
   let listMovies = '';
+  console.log(listMovies.length);
+  
 
   data.forEach((el) => {
     let nameEl = el.name || el.title;
@@ -63,6 +65,7 @@ function renderData(data) {
     `;
 
   });
+  console.log(listMovies.length);
   movies.innerHTML = listMovies;
 }
 
