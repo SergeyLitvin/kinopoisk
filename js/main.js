@@ -42,24 +42,15 @@ function getServerData(url) {
 Generating html from the data array
 ================================================== */
 function renderData(data) {
-
-  let listMovies = '';
-  const preloader = document.querySelector('.gooey');
-
   console.log(data);
+  let listMovies = '';
 
-  if (listMovies.length === 0) {
-    preloader.style = "opacity: 1;";
-    // movies.innerHTML = 'Загрузка результатов поиска...';
-  } else {
-    preloader.style = "opacity: 0;";
-  }
-    data.forEach((el) => {
-      let nameEl = el.name || el.title;
-      let imgUrl = 'https://image.tmdb.org/t/p/w500/';
-      let releaseDate = el.release_date || 'Неизвестен';
-      let poster = el.poster_path != null ? imgUrl + el.poster_path : './img/no_poster.jpg';
-      listMovies += `
+  data.forEach((el) => {
+    let nameEl = el.name || el.title;
+    let imgUrl = 'https://image.tmdb.org/t/p/w500/';
+    let releaseDate = el.release_date || 'Неизвестен';
+    let poster = el.poster_path != null ? imgUrl + el.poster_path : './img/no_poster.jpg';
+    listMovies += `
         <article class="col-xs-12 col-sm-6 col-md-4 col-lg-3 card-films">
           <h1>${nameEl}</h1>
           <img class="img-responsive" src="${poster}">
@@ -69,9 +60,9 @@ function renderData(data) {
           </div>
         </article>
       `;
-    });
+  });
 
-  console.log(listMovies.length);
+
   movies.innerHTML = listMovies;
 }
 
@@ -83,11 +74,22 @@ searchForm.addEventListener('submit', function () {
   const url = buildingLink(event);
 
   if (typeof url === 'string') {
+    const preloader = document.querySelector('.gooey');
+    preloader.style.display = 'block';
+
+
     const listVideo = getServerData(url)
       .then(function (data) {
         const searchingResultsData = JSON.parse(data).results;
         if (typeof searchingResultsData === 'object') {
-          renderData(searchingResultsData);
+          
+          if (searchingResultsData.length > 0) {
+            preloader.style.display = 'none';
+            renderData(searchingResultsData);
+          } else {
+              preloader.style.display = 'none';
+              renderData(searchingResultsData);
+          }
         }
       }, (error) => console.log(error));
 
