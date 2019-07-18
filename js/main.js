@@ -5,6 +5,7 @@ const apiKey = '1b881d5b372353011a0eae96576a19ca';
 const searchForm = document.getElementById('search-form');
 const movies = document.getElementById('movies');
 
+
 /* ==================================================
 Link formation from input parameters
 ================================================== */
@@ -38,6 +39,7 @@ function getServerData(url) {
   return makeRequest;
 }
 
+
 /* ==================================================
 Generating html from the data array
 ================================================== */
@@ -66,33 +68,33 @@ function renderData(data) {
   movies.innerHTML = listMovies;
 }
 
+
 /* ==================================================
 Start program
 ================================================== */
-searchForm.addEventListener('submit', function () {
+searchForm.addEventListener('submit', function() {
 
   const url = buildingLink(event);
 
   if (typeof url === 'string') {
-    const preloader = document.querySelector('.gooey');
-    preloader.style.display = 'block';
-
-
     const listVideo = getServerData(url)
-      .then(function (data) {
-        const searchingResultsData = JSON.parse(data).results;
-        if (typeof searchingResultsData === 'object') {
-          
-          if (searchingResultsData.length > 0) {
-            preloader.style.display = 'none';
-            renderData(searchingResultsData);
-          } else {
-              preloader.style.display = 'none';
-              renderData(searchingResultsData);
-          }
-        }
-      }, (error) => console.log(error));
+    .then(function(data) {
+      const searchingResultsData = JSON.parse(data).results;
 
+      if(typeof searchingResultsData === 'object') {
+        console.log(searchingResultsData);
+        if(searchingResultsData.length === 0) {
+          movies.innerHTML = `
+          <div class="col-xs-12 text-info text-center" style="padding: 4rem 2rem;">
+            По вашему запросу ничего не найдено!!! Попробуйте изменить поисковый запрос.
+          </div>`;
+        } else {
+          renderData(searchingResultsData);
+        }
+
+      }
+    }, (error) => console.log(error));
+    
   }
 
 });

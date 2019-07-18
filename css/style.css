@@ -80,3 +80,7 @@ span {
     transform: translateX(-31px);
   }
 }
+
+.text-info {
+    font-size: 2rem;
+}
