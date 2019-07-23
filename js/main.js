@@ -1,9 +1,17 @@
 /* ==================================================
 Base constants
 ================================================== */
-const apiKey = '1b881d5b372353011a0eae96576a19ca';
 const searchForm = document.getElementById('search-form');
 const movies = document.getElementById('movies');
+
+const urlConfig = {
+  baseUrl: 'https://api.themoviedb.org',
+  apiKey: '1b881d5b372353011a0eae96576a19ca',
+  typeRequest: 'search',
+  typeSearch: 'multi'
+}
+
+
 
 
 /* ==================================================
@@ -13,7 +21,7 @@ function buildingLink(event) {
   event.preventDefault();
   const searchText = document.querySelector('.form-control').value;
 
-  const requestUrl = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=ru-RU&query=${searchText}&include_adult=false`;
+  const requestUrl = `${urlConfig.baseUrl}/3/${urlConfig.typeRequest}/${urlConfig.typeSearch}?api_key=${urlConfig.apiKey}&language=ru-RU&query=${searchText}&include_adult=false`;
 
   return requestUrl;
 }
@@ -44,7 +52,6 @@ function getServerData(url) {
 Generating html from the data array
 ================================================== */
 function renderData(data) {
-  console.log(data);
   let listMovies = '';
 
   data.forEach((el) => {
@@ -82,7 +89,7 @@ searchForm.addEventListener('submit', function() {
       const searchingResultsData = JSON.parse(data).results;
 
       if(typeof searchingResultsData === 'object') {
-        console.log(searchingResultsData);
+        // console.log(searchingResultsData);
         if(searchingResultsData.length === 0) {
           movies.innerHTML = `
           <div class="col-xs-12 text-info text-center" style="padding: 4rem 2rem;">
