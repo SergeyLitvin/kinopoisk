@@ -7,6 +7,32 @@ nav a {
     color: #0060c7;
 }
 
+.search-form {
+    display: flex;
+    background: #fff;
+    border: 1px solid #0060c7;
+    border-radius: 5px;
+}
+
+.search-form input[type='search'] {
+    border: none;
+}
+
+.search-form button {
+    border: none;
+    background: #fff;
+    border-radius: 5px;
+}
+
+.search-form button:focus {
+    outline: none;
+}
+
+.search-form button img {
+    width: 32px;
+    height: 32px;
+}
+
 .item {
     margin: 15px 0;
     text-align: center;
