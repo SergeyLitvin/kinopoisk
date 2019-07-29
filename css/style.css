@@ -1,21 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,700&display=swap&subset=cyrillic');
+
+html, body {
+    font: 16px/18px 400 sans-serif;
+    font-family: 'Ubuntu';
+}
+
 img, .img-responsive {
     max-width: 100%;
     height: auto;
 }
 
-nav a {
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+}
+
+.navbar a {
     color: #0060c7;
+    font-size: 3rem;
+    text-decoration: none;
+}
+
+.search-block {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .search-form {
     display: flex;
+    justify-content: space-between;
     background: #fff;
     border: 1px solid #0060c7;
     border-radius: 5px;
+    padding: 5px;
 }
 
 .search-form input[type='search'] {
     border: none;
+    border-radius: 5px;
+    width: 100%;
+    padding-left: 10px; 
+}
+
+.search-form input[type='search']:focus {
+    border: none;
+    outline: none;
 }
 
 .search-form button {
@@ -33,12 +66,16 @@ nav a {
     height: 32px;
 }
 
-.item {
-    margin: 15px 0;
-    text-align: center;
+.movies-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    box-sizing: border-box;
 }
 
 .card-films {
+    width: 25%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
 }

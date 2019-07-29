@@ -60,10 +60,10 @@ function renderData(data) {
     let releaseDate = el.release_date || 'Неизвестен';
     let poster = el.poster_path != null ? imgUrl + el.poster_path : './img/no_poster.jpg';
     listMovies += `
-        <article class="col-xs-12 col-sm-6 col-md-4 col-lg-3 card-films">
+        <article class="card-films">
           <h1>${nameEl}</h1>
           <img class="img-responsive" src="${poster}">
-          <div class="descript d-flex justify-content-between">
+          <div class="descript">
             <strong class="year">Год: ${releaseDate}</strong> 
             <strong class="rating">Рейтинг: ${el.vote_average}</strong>  
           </div>
