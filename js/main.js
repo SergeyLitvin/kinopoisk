@@ -11,9 +11,6 @@ const urlConfig = {
   typeSearch: 'multi'
 }
 
-
-
-
 /* ==================================================
 Link formation from input parameters
 ================================================== */
@@ -70,7 +67,6 @@ function renderData(data) {
         </article>
       `;
   });
-
 
   movies.innerHTML = listMovies;
 }

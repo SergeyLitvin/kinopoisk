@@ -49,6 +49,7 @@ header {
 .search-form input[type='search']:focus {
     border: none;
     outline: none;
+    background-color: #fff;
 }
 
 .search-form button {
