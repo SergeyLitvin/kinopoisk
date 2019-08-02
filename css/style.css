@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,700&display=swap&subset=cyrillic');
 
 html, body {
-    font: 16px/18px 400 sans-serif;
+    font: 16px/18px normal sans-serif;
     font-family: 'Ubuntu';
 }
 
@@ -92,7 +92,7 @@ header {
 
 /* CSS Preloader */
 
-.gooey {
+.loading {
     display: none;
     position: absolute;
     top: 50%;
@@ -104,7 +104,7 @@ header {
     filter: contrast(20);
 }
 
-.gooey .dot {
+.loading .dot {
     position: absolute;
     width: 16px;
     height: 16px;
@@ -116,7 +116,7 @@ header {
     transform: translateX(-25px);
     animation: dot 2.8s infinite;
 }
-.gooey .dots {
+.loading .dots {
     transform: translateX(0);
     margin-top: 12px;
     margin-left: 31px;
@@ -147,4 +147,5 @@ span {
 
 .text-info {
     font-size: 2rem;
+    padding: 4rem 2rem;
 }

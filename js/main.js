@@ -88,7 +88,7 @@ searchForm.addEventListener('submit', function() {
         // console.log(searchingResultsData);
         if(searchingResultsData.length === 0) {
           movies.innerHTML = `
-          <div class="col-xs-12 text-info text-center" style="padding: 4rem 2rem;">
+          <div class="text-info">
             По вашему запросу ничего не найдено!!! Попробуйте изменить поисковый запрос.
           </div>`;
         } else {
