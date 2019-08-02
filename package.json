@@ -1,0 +1,25 @@
+{
+  "name": "movie-collection",
+  "version": "0.0.1",
+  "description": "Find your favorite movie and save to your collection",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SergeyLitvin/kinopoisk.git"
+  },
+  "keywords": [
+    "kinopoisk",
+    "movie",
+    "collection",
+    "films"
+  ],
+  "author": "Sergey Litvin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SergeyLitvin/kinopoisk/issues"
+  },
+  "homepage": "https://github.com/SergeyLitvin/kinopoisk#readme"
+}
