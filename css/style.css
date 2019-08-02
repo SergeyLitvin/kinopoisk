@@ -19,6 +19,10 @@ header {
     text-align: center;
 }
 
+.navbar {
+    margin: 3rem;
+}
+
 .navbar a {
     color: #0060c7;
     font-size: 3rem;
