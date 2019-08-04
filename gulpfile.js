@@ -27,7 +27,7 @@ let config = {
 		dest: '/img'
 	},
 	css: {
-		src: 'css/style.less',
+		src: 'css/styles.less',
 		watch: 'css/**/*.less',
 		dest: '/css'
 	}
@@ -37,6 +37,34 @@ let config = {
 function html(){
 	return gulp.src(config.src + config.html.src)
 			   .pipe(gulp.dest(config.build + config.html.dest))
+			   .pipe(gulpIf(isSync, browserSync.stream()));
+}
+
+// Compression images
+function img(){
+	return gulp.src(config.src + config.img.src)
+			   .pipe(gulpIf(isProd, imagemin([
+			   		imageminPngquant({
+			   			quality: [0.7, 0.9]
+			   		})
+			   	])))
+			   .pipe(gulp.dest(config.build + config.img.dest));
+}
+
+// Build css
+function css(){
+	return gulp.src(config.src + config.css.src)
+			   .pipe(less())
+			   .pipe(gulpIf(isDev, sourcemaps.init()))
+			   .pipe(concat('style.css'))
+			   .pipe(autoprefixer({
+		            browsers: ['> 0.2%']
+		        }))
+			   .pipe(gulpIf(isProd, cleanCSS({
+		            level: 2
+		        })))
+			   .pipe(gulpIf(isDev, sourcemaps.write()))
+			   .pipe(gulp.dest(config.build + config.css.dest))
 			   .pipe(gulpIf(isSync, browserSync.stream()));
 }
 
