@@ -32,3 +32,11 @@ let config = {
 		dest: '/css'
 	}
 };
+
+// Build html
+function html(){
+	return gulp.src(config.src + config.html.src)
+			   .pipe(gulp.dest(config.build + config.html.dest))
+			   .pipe(gulpIf(isSync, browserSync.stream()));
+}
+
