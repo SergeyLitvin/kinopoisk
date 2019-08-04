@@ -72,3 +72,26 @@ function css(){
 function clear(){
 	return del(config.build + '/*');
 }
+
+// Development mode
+function watch(){
+	if(isSync){
+		browserSync.init({
+	        server: {
+	            baseDir: config.build
+	        },
+	        // tunnel: true
+	    });
+	}
+
+	gulp.watch(config.src + config.html.src, html);
+	gulp.watch(config.src + config.css.watch, css);
+}
+
+// Build for production
+let build = gulp.series(clear, 
+  gulp.parallel(html, img, css)
+);
+
+gulp.task('build', build);
+gulp.task('watch', gulp.series(build, watch));
