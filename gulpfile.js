@@ -30,6 +30,10 @@ let config = {
 		src: 'css/styles.less',
 		watch: 'css/**/*.less',
 		dest: '/css'
+  },
+  js: {
+		src: 'js/main.js',
+		dest: '/js'
 	}
 };
 
@@ -66,6 +70,13 @@ function css(){
 			   .pipe(gulpIf(isDev, sourcemaps.write()))
 			   .pipe(gulp.dest(config.build + config.css.dest))
 			   .pipe(gulpIf(isSync, browserSync.stream()));
+}
+
+// Build JS
+function js(){
+  return gulp.src(config.src + config.src.js)
+  .pipe(gulpIf(isDev, sourcemaps.init()))
+  .pipe(gulp.dest(config.build + config.js.dest))
 }
 
 // Clear
