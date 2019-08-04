@@ -68,3 +68,7 @@ function css(){
 			   .pipe(gulpIf(isSync, browserSync.stream()));
 }
 
+// Clear
+function clear(){
+	return del(config.build + '/*');
+}
