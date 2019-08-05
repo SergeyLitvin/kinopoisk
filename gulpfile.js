@@ -1,8 +1,9 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
-let pipeline = require('readable-stream').pipeline;
+const babel = require('gulp-babel');
 const plumber = require('gulp-plumber');
+const include = require('gulp-file-include');
 const cleanCSS = require('gulp-clean-css');
 // const autoprefixer = require('gulp-autoprefixer');
 const del = require('del');
@@ -12,11 +13,24 @@ const gulpIf = require('gulp-if');
 const imagemin = require('gulp-imagemin');
 const imageminPngquant = require('imagemin-pngquant');
 const less = require('gulp-less');
-const path = require('path');
 
 let isDev = process.argv.includes('--dev');
 let isProd = !isDev;
 let isSync = process.argv.includes('--sync');
+
+const AUTOPREFIXER = [
+	'> 1%',
+	'ie >= 8',
+	'edge >= 15',
+	'ie_mob >= 10',
+	'ff >= 45',
+	'chrome >= 45',
+	'safari >= 7',
+	'opera >= 23',
+	'ios >= 7',
+	'android >= 4',
+	'bb >= 10'
+];
 
 let config = {
 	src: './src/',
@@ -33,8 +47,8 @@ let config = {
 		src: 'css/styles.less',
 		watch: 'css/**/*.less',
 		dest: '/css'
-  	},
-  	js: {
+	},
+	js: {
 		src: '/js',
 		watch: '/js/*.js',
 		dest: '/js'
@@ -42,70 +56,77 @@ let config = {
 };
 
 // Build html
-function html(){
+function html() {
 	return gulp.src(config.src + config.html.src)
-			   .pipe(gulp.dest(config.build + config.html.dest))
-			   .pipe(gulpIf(isSync, browserSync.stream()));
+		.pipe(gulp.dest(config.build + config.html.dest))
+		.pipe(gulpIf(isSync, browserSync.stream()));
 }
 
 // Compression images
-function img(){
+function img() {
 	return gulp.src(config.src + config.img.src)
-			   .pipe(gulpIf(isProd, imagemin([
-			   		imageminPngquant({
-			   			quality: [0.7, 0.9]
-			   		})
-			   	])))
-			   .pipe(gulp.dest(config.build + config.img.dest));
+		.pipe(gulpIf(isProd, imagemin([
+			imageminPngquant({
+				quality: [0.7, 0.9]
+			})
+		])))
+		.pipe(gulp.dest(config.build + config.img.dest));
 }
 
 // Build css
-function css(){
+function css() {
 	return gulp.src(config.src + config.css.src)
-			   .pipe(less())
-			   .pipe(gulpIf(isDev, sourcemaps.init()))
-			   .pipe(concat('style.css'))
-			  //  .pipe(autoprefixer({
-		    //         browsers: brouserlist
-		    //     }))
-			   .pipe(gulpIf(isProd, cleanCSS({
-		            level: 2
-		        })))
-			   .pipe(gulpIf(isDev, sourcemaps.write()))
-			   .pipe(gulp.dest(config.build + config.css.dest))
-			   .pipe(gulpIf(isSync, browserSync.stream()));
+		.pipe(less())
+		.pipe(gulpIf(isDev, sourcemaps.init()))
+		.pipe(concat('style.css'))
+		// .pipe(autoprefixer({
+		// 	browsers: AUTOPREFIXER
+		// }))
+		.pipe(gulpIf(isProd, cleanCSS({
+			level: 2
+		})))
+		.pipe(gulpIf(isDev, sourcemaps.write()))
+		.pipe(gulp.dest(config.build + config.css.dest))
+		.pipe(gulpIf(isSync, browserSync.stream()));
 }
 
 // Build JS
-function js(){
+function js() {
 	return gulp.src([
-		// список обрабатываемых файлов в нужной последовательности
-		config.src + config.js.src + '/some.js',
-		config.src + config.js.src + '/main.js'
+			// список обрабатываемых файлов в нужной последовательности
+			config.src + config.js.src + '/some.js',
+			config.src + config.js.src + '/main.js'
 
-	])
-    .pipe(plumber({ errorHandler: true  }))
-	.pipe(concat('main.js'))
-	// .pipe(uglify())
-	.pipe(gulp.dest(config.build + config.js.dest))
-	.pipe(gulpIf(isSync, browserSync.stream()));
+		])
+		.pipe(sourcemaps.init())
+		.pipe(include())
+		.pipe(plumber({
+			errorHandler: true
+		}))
+		.pipe(concat('main.js'))
+		// .pipe(babel({
+		//   presets: ['es2015']
+		// }))
+		//.pipe(uglify())
+		.pipe(gulp.dest(config.build + config.js.dest))
+		.pipe(gulpIf(isSync, browserSync.stream()));
 }
 
 
 // Clear
-function clear(){
+function clear() {
 	return del(config.build + '/*');
 }
 
 // Development mode
-function watch(){
-	if(isSync){
+function watch() {
+	if (isSync) {
 		browserSync.init({
-	        server: {
-	            baseDir: config.build
-	        },
-	        // tunnel: true
-	    });
+			server: {
+				baseDir: config.build
+			},
+			// tunnel: true
+		});
 	}
 
 	gulp.watch(config.src + config.html.src, html);
@@ -114,8 +135,8 @@ function watch(){
 }
 
 // Build for production
-let build = gulp.series(clear, 
-  gulp.parallel(html, img, css, js)
+let build = gulp.series(clear,
+	gulp.parallel(html, img, css, js)
 );
 
 gulp.task('clear', clear);
