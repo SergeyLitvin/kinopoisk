@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Movie collection</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="navbar-brand">
+                    Movie collection</a>
+            </nav>
+        </div>
+        <div class="container">
+            <div class="search-block">
+                <h3 class="text-center">Найди любимый фильм и сохрани в свою коллекцию</h3>
+                <form action="" id="search-form" class="search-form">
+                    <input type="search" class="form-control" id="searchText" placeholder="Введите название фильма...">
+                    <button type="submit">
+                        <img src="/img/search-icon.png" alt="search">
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div id="movies" class="movies-list">
+                <div class="loading">
+                    <span class="dot"></span>
+                    <div class="dots">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="js/main.js" async></script>
+</body>
+
+</html>
