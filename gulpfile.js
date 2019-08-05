@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const cleanCSS = require('gulp-clean-css');
-const autoprefixer = require('gulp-autoprefixer');
+// const autoprefixer = require('gulp-autoprefixer');
 const del = require('del');
 const browserSync = require('browser-sync').create();
 const sourcemaps = require('gulp-sourcemaps');
@@ -32,7 +32,7 @@ let config = {
 		dest: '/css'
   },
   js: {
-		src: 'js/main.js',
+		src: 'js/*.js',
 		dest: '/js'
 	}
 };
@@ -61,9 +61,9 @@ function css(){
 			   .pipe(less())
 			   .pipe(gulpIf(isDev, sourcemaps.init()))
 			   .pipe(concat('style.css'))
-			   .pipe(autoprefixer({
-		            browsers: ['> 0.2%']
-		        }))
+			  //  .pipe(autoprefixer({
+		    //         browsers: brouserlist
+		    //     }))
 			   .pipe(gulpIf(isProd, cleanCSS({
 		            level: 2
 		        })))
@@ -74,8 +74,9 @@ function css(){
 
 // Build JS
 function js(){
-  return gulp.src(config.src + config.src.js)
-  .pipe(gulpIf(isDev, sourcemaps.init()))
+	return gulp.src(config.src + config.src.js)
+	.pipe(concat(main.js))
+  // .pipe(gulpIf(isDev, sourcemaps.init()))
   .pipe(gulp.dest(config.build + config.js.dest))
 }
 
@@ -97,6 +98,7 @@ function watch(){
 
 	gulp.watch(config.src + config.html.src, html);
 	gulp.watch(config.src + config.css.watch, css);
+	// gulp.watch(config.src + config.js.watch, js);
 }
 
 // Build for production
