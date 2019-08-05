@@ -1,5 +1,5 @@
 console.log('some.js')
-"use strict";
+'use strict';
 
 /* ==================================================
 Base constants
@@ -18,6 +18,7 @@ const urlConfig = {
 Link formation from input parameters
 ================================================== */
 function buildingLink(event) {
+  debugger;
   event.preventDefault();
   const searchText = document.querySelector('.form-control').value;
 

@@ -17,6 +17,7 @@ const urlConfig = {
 Link formation from input parameters
 ================================================== */
 function buildingLink(event) {
+  debugger;
   event.preventDefault();
   const searchText = document.querySelector('.form-control').value;
 
