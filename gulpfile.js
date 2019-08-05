@@ -1,5 +1,8 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+let pipeline = require('readable-stream').pipeline;
+const plumber = require('gulp-plumber');
 const cleanCSS = require('gulp-clean-css');
 // const autoprefixer = require('gulp-autoprefixer');
 const del = require('del');
@@ -30,9 +33,10 @@ let config = {
 		src: 'css/styles.less',
 		watch: 'css/**/*.less',
 		dest: '/css'
-  },
-  js: {
-		src: 'js/*.js',
+  	},
+  	js: {
+		src: '/js',
+		watch: '/js/*.js',
 		dest: '/js'
 	}
 };
@@ -74,11 +78,19 @@ function css(){
 
 // Build JS
 function js(){
-	return gulp.src(config.src + config.src.js)
-	.pipe(concat(main.js))
-  // .pipe(gulpIf(isDev, sourcemaps.init()))
-  .pipe(gulp.dest(config.build + config.js.dest))
+	return gulp.src([
+		// список обрабатываемых файлов в нужной последовательности
+		config.src + config.js.src + '/some.js',
+		config.src + config.js.src + '/main.js'
+
+	])
+    .pipe(plumber({ errorHandler: true  }))
+	.pipe(concat('main.js'))
+	// .pipe(uglify())
+	.pipe(gulp.dest(config.build + config.js.dest))
+	.pipe(gulpIf(isSync, browserSync.stream()));
 }
+
 
 // Clear
 function clear(){
@@ -98,13 +110,18 @@ function watch(){
 
 	gulp.watch(config.src + config.html.src, html);
 	gulp.watch(config.src + config.css.watch, css);
-	// gulp.watch(config.src + config.js.watch, js);
+	gulp.watch(config.src + config.js.watch, js);
 }
 
 // Build for production
 let build = gulp.series(clear, 
-  gulp.parallel(html, img, css)
+  gulp.parallel(html, img, css, js)
 );
 
+gulp.task('clear', clear);
+gulp.task('html', html);
+gulp.task('css', css);
+gulp.task('img', img);
+gulp.task('js', js);
 gulp.task('build', build);
 gulp.task('watch', gulp.series(build, watch));
