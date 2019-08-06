@@ -4,7 +4,7 @@ const uglify = require('gulp-uglify');
 let pipeline = require('readable-stream').pipeline;
 const plumber = require('gulp-plumber');
 const cleanCSS = require('gulp-clean-css');
-// const autoprefixer = require('gulp-autoprefixer');
+const autoprefixer = require('gulp-autoprefixer');
 const del = require('del');
 const browserSync = require('browser-sync').create();
 const sourcemaps = require('gulp-sourcemaps');
@@ -13,6 +13,7 @@ const imagemin = require('gulp-imagemin');
 const imageminPngquant = require('imagemin-pngquant');
 const less = require('gulp-less');
 const path = require('path');
+
 
 let isDev = process.argv.includes('--dev');
 let isProd = !isDev;
@@ -38,7 +39,20 @@ let config = {
 		src: '/js',
 		watch: '/js/*.js',
 		dest: '/js'
-	}
+	},
+	browserslist: [
+		"> 1%",
+		"ie >= 8",
+		"edge >= 15",
+		"ie_mob >= 10",
+		"ff >= 45",
+		"chrome >= 45",
+		"safari >= 7",
+		"opera >= 23",
+		"ios >= 7",
+		"android >= 4",
+		"bb >= 10"
+	  ]
 };
 
 // Build html
@@ -65,10 +79,10 @@ function css(){
 			   .pipe(less())
 			   .pipe(gulpIf(isDev, sourcemaps.init()))
 			   .pipe(concat('style.css'))
-			  //  .pipe(autoprefixer({
-		    //         browsers: brouserlist
-		    //     }))
-			   .pipe(gulpIf(isProd, cleanCSS({
+			   .pipe(autoprefixer({
+					overrideBrowserslist: config.browserslist
+				}))
+				.pipe(gulpIf(isProd, cleanCSS({
 		            level: 2
 		        })))
 			   .pipe(gulpIf(isDev, sourcemaps.write()))

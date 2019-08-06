@@ -1,4 +1,4 @@
-var AUTOPREFIXER = [
+const AUTOPREFIXER = [
 
 '> 1%',
 'ie >= 8',
