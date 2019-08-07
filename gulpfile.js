@@ -69,8 +69,8 @@ function html() {
 // Compression images
 function img() {
 	return gulp.src([
-		config.src + config.img.src
-	])
+			config.src + config.img.src
+		])
 		.pipe(gulpIf(isProd, imagemin([
 			imageminPngquant({
 				quality: [0.7, 0.9]
@@ -81,7 +81,7 @@ function img() {
 
 function copyStatic() {
 	return gulp.src(config.src + 'favicon.ico')
-	.pipe(gulp.dest(config.build))
+		.pipe(gulp.dest(config.build))
 }
 
 // Build css
@@ -112,21 +112,20 @@ function js() {
 			config.src + config.js.src + '/main.js'
 
 		])
-		.pipe(sourcemaps.init())
-		.pipe(terser())
-		.pipe(sourcemaps.write('./'))
+		.pipe(gulpIf(isDev, sourcemaps.init()))
 		.pipe(include())
 		.pipe(plumber({
 			errorHandler: true
 		}))
 		.pipe(concat('main.js'))
-		.pipe(babel({
+		.pipe(gulpIf(isProd, babel({
 			"presets": [
 				[
-				  "@babel/preset-env"
+					"@babel/preset-env"
 				]
-			  ]
-		  }))
+			]
+		})))
+		.pipe(gulpIf(isProd, terser()))
 		.pipe(gulp.dest(config.build + config.js.dest))
 		.pipe(gulpIf(isSync, browserSync.stream()));
 }
@@ -154,7 +153,7 @@ function watch() {
 }
 
 // Build for production
-let build = gulp.series(clear, copyStatic, 
+let build = gulp.series(clear, copyStatic,
 	gulp.parallel(html, img, css, js)
 );
 
