@@ -1,7 +1,8 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
-const uglify = require('gulp-uglify');
+const terser = require('gulp-terser');
 const babel = require('gulp-babel');
+const babelPresetEnv = require('@babel/preset-env');
 const plumber = require('gulp-plumber');
 const include = require('gulp-file-include');
 const cleanCSS = require('gulp-clean-css');
@@ -52,19 +53,24 @@ let config = {
 		"ios >= 7",
 		"android >= 4",
 		"bb >= 10"
-	  ]
+	]
 };
 
 // Build html
 function html() {
 	return gulp.src(config.src + config.html.src)
+		.pipe(plumber({
+			errorHandler: true
+		}))
 		.pipe(gulp.dest(config.build + config.html.dest))
 		.pipe(gulpIf(isSync, browserSync.stream()));
 }
 
 // Compression images
 function img() {
-	return gulp.src(config.src + config.img.src)
+	return gulp.src([
+		config.src + config.img.src
+	])
 		.pipe(gulpIf(isProd, imagemin([
 			imageminPngquant({
 				quality: [0.7, 0.9]
@@ -73,21 +79,29 @@ function img() {
 		.pipe(gulp.dest(config.build + config.img.dest));
 }
 
+function copyStatic() {
+	return gulp.src(config.src + 'favicon.ico')
+	.pipe(gulp.dest(config.build))
+}
+
 // Build css
 function css() {
 	return gulp.src(config.src + config.css.src)
-			   .pipe(less())
-			   .pipe(gulpIf(isDev, sourcemaps.init()))
-			   .pipe(concat('style.css'))
-			   .pipe(autoprefixer({
-					overrideBrowserslist: config.browserslist
-				}))
-				.pipe(gulpIf(isProd, cleanCSS({
-		            level: 2
-		        })))
-			   .pipe(gulpIf(isDev, sourcemaps.write()))
-			   .pipe(gulp.dest(config.build + config.css.dest))
-			   .pipe(gulpIf(isSync, browserSync.stream()));
+		.pipe(plumber({
+			errorHandler: true
+		}))
+		.pipe(less())
+		.pipe(gulpIf(isDev, sourcemaps.init()))
+		.pipe(concat('style.css'))
+		.pipe(autoprefixer({
+			overrideBrowserslist: config.browserslist
+		}))
+		.pipe(gulpIf(isProd, cleanCSS({
+			level: 2
+		})))
+		.pipe(gulpIf(isDev, sourcemaps.write()))
+		.pipe(gulp.dest(config.build + config.css.dest))
+		.pipe(gulpIf(isSync, browserSync.stream()));
 }
 
 // Build JS
@@ -99,15 +113,20 @@ function js() {
 
 		])
 		.pipe(sourcemaps.init())
+		.pipe(terser())
+		.pipe(sourcemaps.write('./'))
 		.pipe(include())
 		.pipe(plumber({
 			errorHandler: true
 		}))
 		.pipe(concat('main.js'))
-		// .pipe(babel({
-		//   presets: ['es2015']
-		// }))
-		//.pipe(uglify())
+		.pipe(babel({
+			"presets": [
+				[
+				  "@babel/preset-env"
+				]
+			  ]
+		  }))
 		.pipe(gulp.dest(config.build + config.js.dest))
 		.pipe(gulpIf(isSync, browserSync.stream()));
 }
@@ -135,14 +154,20 @@ function watch() {
 }
 
 // Build for production
-let build = gulp.series(clear,
+let build = gulp.series(clear, copyStatic, 
 	gulp.parallel(html, img, css, js)
 );
 
+// single functions
+gulp.task('copyStatic', copyStatic);
 gulp.task('clear', clear);
 gulp.task('html', html);
 gulp.task('css', css);
 gulp.task('img', img);
 gulp.task('js', js);
+
+// production assembly
 gulp.task('build', build);
+
+// develop assembly
 gulp.task('watch', gulp.series(build, watch));
