@@ -31,6 +31,10 @@ let config = {
 		src: 'img/**/*',
 		dest: '/img'
 	},
+	fonts: {
+		src: 'fonts/*',
+		dest: '/fonts'
+	},
 	css: {
 		src: 'css/styles.less',
 		watch: 'css/**/*.less',
@@ -79,10 +83,18 @@ function img() {
 		.pipe(gulp.dest(config.build + config.img.dest));
 }
 
-function copyStatic() {
+// Copy favicon
+function copyFavicon() {
 	return gulp.src(config.src + 'favicon.ico')
 		.pipe(gulp.dest(config.build))
 }
+
+// Copy fonts
+function fonts() {
+	return gulp.src(config.src + config.fonts.src)
+		.pipe(gulp.dest(config.build + config.fonts.dest))
+}
+
 
 // Build css
 function css() {
@@ -153,14 +165,15 @@ function watch() {
 }
 
 // Build for production
-let build = gulp.series(clear, copyStatic,
+let build = gulp.series(clear, copyFavicon, fonts,
 	gulp.parallel(html, img, css, js)
 );
 
 // single functions
-gulp.task('copyStatic', copyStatic);
+gulp.task('copyFavicon', copyFavicon);
 gulp.task('clear', clear);
 gulp.task('html', html);
+gulp.task('fonts', fonts);
 gulp.task('css', css);
 gulp.task('img', img);
 gulp.task('js', js);
