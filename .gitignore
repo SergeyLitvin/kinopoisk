@@ -1,2 +1,8 @@
 .idea/*
+<<<<<<< HEAD
 node_modules
+=======
+.vscode/*
+node_modules/*
+build/*
+>>>>>>> dev
