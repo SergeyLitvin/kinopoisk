@@ -23,7 +23,7 @@ function getBrowserLang() {
     window.navigator.systemLanguage ||
     window.navigator.userLanguage) : "ru-Ru";
 }
-getBrowserLang();
+
 
 /* ==================================================
 Link formation from input parameters
@@ -41,15 +41,14 @@ function buildingLink(event) {
 Receiving data from server
 ================================================== */
 function getServerData(url) {
-  const makeRequest = new Promise(function (resolve, reject) {
-
+  const makeRequest = new Promise( (resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
-    xhr.onload = function () {
+    xhr.onload = () => {
       if (xhr.status === 200) {
         resolve(xhr.response);
       } else {
-        reject('Error');
+        reject ('Error');
       }
     };
     xhr.send();
@@ -66,10 +65,10 @@ function renderData(data) {
   let listMovies = '';
 
   data.forEach((el) => {
-    let nameEl = el.name || el.title;
-    let imgUrl = 'https://image.tmdb.org/t/p/w500/';
-    let releaseDate = el.release_date || 'Неизвестен';
-    let poster = el.poster_path != null ? imgUrl + el.poster_path : './img/no_poster.jpg';
+    const nameEl = el.name || el.title;
+    const imgUrl = 'https://image.tmdb.org/t/p/w500/';
+    const releaseDate = el.release_date || 'Неизвестен';
+    const poster = el.poster_path != null ? imgUrl + el.poster_path : './img/no_poster.jpg';
     listMovies += `
         <article class="card-films">
           <h1>${nameEl}</h1>
@@ -89,29 +88,30 @@ function renderData(data) {
 /* ==================================================
 Start program
 ================================================== */
-searchForm.addEventListener('submit', function() {
+getBrowserLang();
 
+searchForm.addEventListener('submit', () => {
   const url = buildingLink(event);
 
   if (typeof url === 'string') {
-    const listVideo = getServerData(url)
-    .then(function(data) {
-      const searchingResultsData = JSON.parse(data).results;
+    getServerData(url)
+      .then((data) => {
+        const searchingResultsData = JSON.parse(data).results;
 
-      if(typeof searchingResultsData === 'object') {
-        // console.log(searchingResultsData);
-        if(searchingResultsData.length === 0) {
-          movies.innerHTML = `
+        if (typeof searchingResultsData === 'object') {
+          // console.log(searchingResultsData);
+          if (searchingResultsData.length === 0) {
+            movies.innerHTML = `
           <div class="text-info">
             По вашему запросу ничего не найдено!!! Попробуйте изменить поисковый запрос.
           </div>`;
-        } else {
-          renderData(searchingResultsData);
-        }
+          } else {
+            renderData(searchingResultsData);
+          }
 
-      }
-    }, (error) => console.log(error));
-    
+        }
+      }, (error) => console.log(error));
+
   }
 
 });

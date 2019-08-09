@@ -39,6 +39,7 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-terser": "^1.2.0",
     "imagemin-pngquant": "^8.0.0",
+    "smart-grid": "^2.1.2"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
@@ -50,5 +51,6 @@
     "gulp-uglify": "^3.0.2",
     "plumber": "^0.4.8",
     "readable-stream": "^3.4.0"
+
   }
 }

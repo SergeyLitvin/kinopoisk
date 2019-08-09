@@ -96,7 +96,6 @@ function fonts() {
 		.pipe(gulp.dest(config.build + config.fonts.dest))
 }
 
-
 // Build css
 function css() {
 	return gulp.src(config.src + config.css.src)
@@ -134,7 +133,9 @@ function js() {
 		.pipe(concat('main.js'))
 		.pipe(gulpIf(isProd, babel({
 			"presets": [
-				babelPresetEnv
+				[
+					"@babel/preset-env"
+				]
 			]
 		})))
 		.pipe(gulpIf(isProd, terser()))
