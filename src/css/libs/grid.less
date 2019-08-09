@@ -3,7 +3,7 @@
 @columns: 12;
 @offset: 30px;
 @offset_one_side: (@offset / 2);
-@atom: 8.333333333333334%;
+@atom: (100% / @columns);
 
 @break_lg: 1120px;
 @break_md: 992px;
@@ -17,8 +17,8 @@
     margin: 0 auto;
 
     @media screen and (max-width: @break_lg) {
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: @offset;
+        padding-right: @offset;
     }
 
     @media screen and (max-width: @break_md) {
@@ -45,8 +45,8 @@
 }
 
 .row-float() {
-    margin-left: -15px;
-    margin-right: -15px;
+    margin-left: @offset_one_side * -1;
+    margin-right: @offset_one_side * -1;
     .clearfix();
 }
 
@@ -113,4 +113,97 @@
 
 .col-12() {
     width:~"calc(100% - @{offset})";
+}
+
+/* Media queries mixins */
+.lg(@name, @value){
+    @media screen and (max-width: @break_lg){
+        @{name}: @value;
+    }
+}
+
+.lg-block(@content){
+    @media screen and (max-width: @break_lg){
+        @content();
+    }
+}
+
+.md(@name, @value){
+    @media screen and (max-width: @break_md){
+        @{name}: @value;
+    }
+}
+
+.md-block(@content){
+    @media screen and (max-width: @break_md){
+        @content();
+    }
+}
+
+.sm(@name, @value){
+    @media screen and (max-width: @break_sm){
+        @{name}: @value;
+    }
+}
+
+.sm-block(@content){
+    @media screen and (max-width: @break_sm){
+        @content();
+    }
+}
+
+.xs(@name, @value){
+    @media screen and (max-width: @break_xs){
+        @{name}: @value;
+    }
+}
+
+.xs-block(@content){
+    @media screen and (max-width: @break_xs){
+        @content();
+    }
+}
+
+.from(@min_width, @content){
+    @media screen and (min-width: @min_width){
+        @content();
+    }
+}
+
+.to(@max_width, @content){
+    @media screen and (max-width: @max_width){
+        @content();
+    }
+}
+
+.from-to(@min_width, @max_width, @content){
+    @media screen and (min-width: @min_width) and (max-width: @max_width){
+        @content();
+    }
+}
+
+/* Debug mixin */
+
+.debug(@background, @outline){
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    
+    > div{
+        height: inherit;
+        .wrapper();
+        
+        > div{
+            height: inherit;
+            .row-flex();
+            
+            > div{
+                .col();
+                .size(1);
+                height: inherit;
+                outline: @outline;
+                background: @background;
+            }
+        }
+    }
 }

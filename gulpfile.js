@@ -14,6 +14,7 @@ const gulpIf = require('gulp-if');
 const imagemin = require('gulp-imagemin');
 const imageminPngquant = require('imagemin-pngquant');
 const less = require('gulp-less');
+var gcmq = require('gulp-group-css-media-queries');
 
 
 let isDev = process.argv.includes('--dev');
@@ -103,6 +104,7 @@ function css() {
 			errorHandler: true
 		}))
 		.pipe(less())
+		.pipe(gcmq())
 		.pipe(gulpIf(isDev, sourcemaps.init()))
 		.pipe(concat('style.css'))
 		.pipe(autoprefixer({
@@ -132,9 +134,7 @@ function js() {
 		.pipe(concat('main.js'))
 		.pipe(gulpIf(isProd, babel({
 			"presets": [
-				[
-					"@babel/preset-env"
-				]
+				babelPresetEnv
 			]
 		})))
 		.pipe(gulpIf(isProd, terser()))

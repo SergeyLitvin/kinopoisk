@@ -1,9 +1,14 @@
 /* Imports */
-@import "blocks/reset.less";
-@import "blocks/variables.less";
-@import "blocks/grid.less";
-@import "blocks/fonts.less";
-@import "blocks/mixins.less";
+@import "libs/reset.less";
+@import "libs/variables.less";
+@import "libs/grid.less";
+@import "libs/fonts.less";
+@import "libs/mixins.less";
+@import "libs/smart-grid.less";
+
+@import "blocks/header.less";
+@import "blocks/main.less";
+@import "blocks/footer.less";
 
 /* Basic styles */
 html,
@@ -16,91 +21,6 @@ body {
 
 .container {
     .container();
-}
-
-header {
-    text-align: center;
-}
-
-.navbar {
-    margin: 3rem;
-}
-
-.navbar a {
-    color: @blue;
-    font-size: 3rem;
-    text-decoration: none;
-}
-
-.search-block {
-    max-width: 600px;
-    margin: 0 auto;
-
-    h3 {
-        font-family: 'Ubuntu Light';
-        font-size: 1.2rem;
-        padding: 1rem;
-    }
-}
-
-.search-form {
-    display: flex;
-    justify-content: space-between;
-    background: @white;
-    border: 1px solid @blue;
-    border-radius: 5px;
-    padding: 5px;
-
-    input[type='search'] {
-        border: none;
-        border-radius: 5px;
-        width: 100%;
-        padding-left: 10px;
-
-        &:focus {
-            border: none;
-            outline: none;
-            background-color: @white;
-        }
-    }
-
-    button {
-        border: none;
-        background: #fff;
-        border-radius: 5px;
-
-        &:focus {
-            outline: none;
-        }
-
-        img {
-            width: 32px;
-            height: 32px;
-        }
-    }
-}
-
-.movies-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    box-sizing: border-box;
-}
-
-.card-films {
-    width: 25%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-
-    h1 {
-        font-size: 24px;
-    }
-}
-
-.descript {
-    margin-top: auto;
-    padding: 10px 0;
 }
 
 /* CSS Preloader */
