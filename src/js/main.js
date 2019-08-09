@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /* ==================================================
 Base constants
@@ -10,8 +10,20 @@ const urlConfig = {
   baseUrl: 'https://api.themoviedb.org',
   apiKey: '1b881d5b372353011a0eae96576a19ca',
   typeRequest: 'search',
-  typeSearch: 'multi'
+  typeSearch: 'multi',
+  lang: ''
+};
+
+
+/* ==================================================
+Get user browser lang
+================================================== */
+function getBrowserLang() {
+  urlConfig.lang = window.navigator ? (window.navigator.language ||
+    window.navigator.systemLanguage ||
+    window.navigator.userLanguage) : "ru-Ru";
 }
+getBrowserLang();
 
 /* ==================================================
 Link formation from input parameters
@@ -20,7 +32,7 @@ function buildingLink(event) {
   event.preventDefault();
   const searchText = document.querySelector('.form-control').value;
 
-  const requestUrl = `${urlConfig.baseUrl}/3/${urlConfig.typeRequest}/${urlConfig.typeSearch}?api_key=${urlConfig.apiKey}&language=ru-RU&query=${searchText}&include_adult=false`;
+  const requestUrl = `${urlConfig.baseUrl}/3/${urlConfig.typeRequest}/${urlConfig.typeSearch}?api_key=${urlConfig.apiKey}&language=${urlConfig.lang}&query=${searchText}&include_adult=false`;
 
   return requestUrl;
 }
