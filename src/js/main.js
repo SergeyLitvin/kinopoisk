@@ -21,7 +21,7 @@ Get user browser lang
 function getBrowserLang() {
   urlConfig.lang = window.navigator ? (window.navigator.language ||
     window.navigator.systemLanguage ||
-    window.navigator.userLanguage) : "ru-Ru";
+    window.navigator.userLanguage) : 'ru-Ru';
 }
 
 
@@ -103,7 +103,8 @@ searchForm.addEventListener('submit', () => {
           if (searchingResultsData.length === 0) {
             movies.innerHTML = `
           <div class="text-info">
-            По вашему запросу ничего не найдено!!! Попробуйте изменить поисковый запрос.
+            <p>По вашему запросу ничего не найдено!!!</p>
+            <p>Попробуйте изменить поисковый запрос.</p>
           </div>`;
           } else {
             renderData(searchingResultsData);
