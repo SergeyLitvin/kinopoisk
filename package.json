@@ -51,6 +51,5 @@
     "gulp-uglify": "^3.0.2",
     "plumber": "^0.4.8",
     "readable-stream": "^3.4.0"
-
   }
 }
