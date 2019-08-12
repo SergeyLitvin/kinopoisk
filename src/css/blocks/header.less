@@ -87,6 +87,22 @@ header {
     }
 
     .period {
+        position: relative;
+        .sm(margin-bottom, 15px);
+
+        &:before {
+            content: "Период";
+            display: block;
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            font-size: 0.625rem;
+            color: @gray;
+            text-align: center;
+        }
+
         &:after {
             content: "";
             display: inline-block;
@@ -95,6 +111,24 @@ header {
             width: 1px;
             height: 36px;
             .sm(display, none);
+        }
+    }
+
+    .media-type {
+        position: relative;
+        .sm(margin-bottom, 15px);
+
+        &:before {
+            content: "Тип видео";
+            display: block;
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            font-size: 0.625rem;
+            color: @gray;
+            text-align: center;
         }
     }
 
