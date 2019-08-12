@@ -51,6 +51,17 @@ function getServerData(url) {
   return makeRequest;
 }
 
+/* ==================================================
+Configurate link for get trendings films
+================================================== */
+function buildTrendingLink (period = "day", mediaType = "all") {
+  const periodTrendings = document.querySelectorAll('.period li');
+  const mediaTypeTrendings = document.querySelectorAll('.media-type li');
+
+  console.log(periodTrendings);
+  console.log(mediaTypeTrendings);
+}
+
 
 /* ==================================================
 Generating html from the data array
@@ -83,6 +94,7 @@ function renderData(data) {
 Start program
 ================================================== */
 getBrowserLang();
+buildTrendingLink();
 
 searchForm.addEventListener('submit', () => {
   const url = buildingLink(event);
