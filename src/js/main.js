@@ -1,5 +1,3 @@
-"use strict";
-
 /* ==================================================
 Base constants
 ================================================== */
@@ -18,9 +16,7 @@ const urlConfig = {
 Get user browser lang
 ================================================== */
 function getBrowserLang() {
-  urlConfig.lang = window.navigator ? (window.navigator.language ||
-    window.navigator.systemLanguage ||
-    window.navigator.userLanguage) : 'ru-Ru';
+  urlConfig.lang = window.navigator ? window.navigator.language : 'ru-Ru';
 };
 
 /* ==================================================
