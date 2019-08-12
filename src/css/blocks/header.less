@@ -14,8 +14,9 @@ header {
 }
 
 .search-block {
-    max-width: 600px;
+    max-width: 780px;
     margin: 0 auto;
+    padding: 0 10px;
 
     h3 {
         font-family: 'Ubuntu Light';
@@ -59,4 +60,54 @@ header {
             height: 32px;
         }
     }
+}
+
+/* Trendings */
+
+.trendings {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    font-family: 'Ubuntu Light';
+
+    .sm(flex-direction, column);
+
+    h4 {
+        margin-right: 10px;
+        padding: 5px;
+    }
+
+    .period,
+    .media-type {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .period {
+        &:after {
+            content: "";
+            display: inline-block;
+            border-right: 1px solid @blue;
+            background: @blue;
+            width: 1px;
+            height: 36px;
+            .sm(display, none);
+        }
+    }
+
+    ul {
+        margin: 0 10px 0 0;
+
+        li {
+            box-sizing: border-box;
+            margin: 0 10px 10px 0;
+            border: 1px solid @blue;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    }
+
 }
