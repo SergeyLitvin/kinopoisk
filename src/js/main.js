@@ -9,14 +9,16 @@ const urlConfig = {
   apiKey: '1b881d5b372353011a0eae96576a19ca',
   typeRequest: 'search',
   typeSearch: 'multi',
-  lang: ''
+  lang: 'ru-Ru'
 };
 
 /* ==================================================
 Get user browser lang
 ================================================== */
 function getBrowserLang() {
-  urlConfig.lang = window.navigator ? window.navigator.language : 'ru-Ru';
+  urlConfig.lang = window.navigator ? (window.navigator.language ||
+    window.navigator.systemLanguage ||
+    window.navigator.userLanguage) : 'ru-Ru';
 };
 
 /* ==================================================
@@ -93,7 +95,7 @@ function renderData(data) {
 /* ==================================================
 Start program
 ================================================== */
-getBrowserLang();
+// getBrowserLang();
 buildTrendingLink();
 
 searchForm.addEventListener('submit', () => {
