@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
+/* eslint-disable prefer-promise-reject-errors */
 /* ==================================================
 Base constants
 ================================================== */
@@ -15,14 +18,14 @@ const urlConfig = {
 /* ==================================================
 Get user browser lang
 ================================================== */
-function getBrowserLang() {
+function getBrowserLang () {
   urlConfig.lang = window.navigator ? window.navigator.language : 'ru-Ru';
-};
+}
 
 /* ==================================================
 Link formation from input parameters
 ================================================== */
-function buildingLink(event) {
+function buildingLink (event) {
   event.preventDefault();
   const searchText = document.querySelector('.form-control').value;
 
@@ -34,7 +37,7 @@ function buildingLink(event) {
 /* ==================================================
 Receiving data from server
 ================================================== */
-function getServerData(url) {
+function getServerData (url) {
   const makeRequest = new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -46,7 +49,6 @@ function getServerData(url) {
       }
     };
     xhr.send();
-
   });
   return makeRequest;
 }
@@ -54,19 +56,15 @@ function getServerData(url) {
 /* ==================================================
 Configurate link for get trendings films
 ================================================== */
-function buildTrendingLink (period = "day", mediaType = "all") {
+function buildTrendingLink (period = 'day', mediaType = 'all') {
   const periodTrendings = document.querySelectorAll('.period li');
   const mediaTypeTrendings = document.querySelectorAll('.media-type li');
-
-  console.log(periodTrendings);
-  console.log(mediaTypeTrendings);
 }
-
 
 /* ==================================================
 Generating html from the data array
 ================================================== */
-function renderData(data) {
+function renderData (data) {
   let listMovies = '';
 
   data.forEach((el) => {
@@ -89,7 +87,6 @@ function renderData(data) {
   movies.innerHTML = listMovies;
 }
 
-
 /* ==================================================
 Start program
 ================================================== */
@@ -97,7 +94,7 @@ getBrowserLang();
 buildTrendingLink();
 
 searchForm.addEventListener('submit', () => {
-  const url = buildingLink(event);
+  const url = buildingLink();
 
   if (typeof url === 'string') {
     getServerData(url)
@@ -115,10 +112,7 @@ searchForm.addEventListener('submit', () => {
           } else {
             renderData(searchingResultsData);
           }
-
         }
-      }, (error) => console.log(error));
-
+      }, error => console.log(error));
   }
-
 });
