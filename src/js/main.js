@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 /* eslint-disable prefer-promise-reject-errors */
@@ -12,32 +13,37 @@ const urlConfig = {
   apiKey: '1b881d5b372353011a0eae96576a19ca',
   typeRequest: 'search',
   typeSearch: 'multi',
-  lang: ''
+  lang: '',
+  trendingLink: {
+    period: 'day',
+    mediaType: 'all',
+  },
 };
 
 /* ==================================================
 Get user browser lang
 ================================================== */
-function getBrowserLang () {
+function getBrowserLang() {
   urlConfig.lang = window.navigator ? window.navigator.language : 'ru-Ru';
 }
 
 /* ==================================================
 Link formation from input parameters
 ================================================== */
-function buildingLink (event) {
-  event.preventDefault();
+function buildingLink(event) {
+  // if (event) {
   const searchText = document.querySelector('.form-control').value;
 
   const requestUrl = `${urlConfig.baseUrl}/3/${urlConfig.typeRequest}/${urlConfig.typeSearch}?api_key=${urlConfig.apiKey}&language=${urlConfig.lang}&query=${searchText}&include_adult=false`;
 
   return requestUrl;
+  // }
 }
 
 /* ==================================================
 Receiving data from server
 ================================================== */
-function getServerData (url) {
+function getServerData(url) {
   const makeRequest = new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -56,15 +62,32 @@ function getServerData (url) {
 /* ==================================================
 Configurate link for get trendings films
 ================================================== */
-function buildTrendingLink (period = 'day', mediaType = 'all') {
+function buildTrendingLink(period = 'day', mediaType = 'all') {
   const periodTrendings = document.querySelectorAll('.period li');
   const mediaTypeTrendings = document.querySelectorAll('.media-type li');
+
+  periodTrendings.forEach((item) => {
+    if (item.className === 'selected') {
+      urlConfig.trendingLink.period = item.attributes['data-time'].nodeValue;
+    }
+  });
+
+  mediaTypeTrendings.forEach((item) => {
+    if (item.className === 'selected') {
+      urlConfig.trendingLink.mediaType = item.attributes['data-media-type'].nodeValue;
+    }
+  });
+
+  const trendingsRequestUrl = `${urlConfig.baseUrl}/3/trending/${urlConfig.trendingLink.mediaType}/${urlConfig.trendingLink.period}?api_key=${urlConfig.apiKey}`;
+  console.log(trendingsRequestUrl);
+
+  return trendingsRequestUrl;
 }
 
 /* ==================================================
 Generating html from the data array
 ================================================== */
-function renderData (data) {
+function renderData(data) {
   let listMovies = '';
 
   data.forEach((el) => {
