@@ -84,7 +84,7 @@ function buildTrendingLink(period = 'day', mediaType = 'all') {
   return trendingsRequestUrl;
 }
 
-/* ==================================================
+/* ==================================================s
 Generating html from the data array
 ================================================== */
 function renderData(data) {
