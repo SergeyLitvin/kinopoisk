@@ -13,7 +13,7 @@ const urlConfig = {
   apiKey: '1b881d5b372353011a0eae96576a19ca',
   typeRequest: 'search',
   typeSearch: 'multi',
-  lang: '',
+  lang: 'ru-RU',
   trendingLink: {
     period: 'day',
     mediaType: 'all',
