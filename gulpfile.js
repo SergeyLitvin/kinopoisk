@@ -130,14 +130,14 @@ function js() {
 			errorHandler: true,
 		}))
 		.pipe(concat('main.js'))
-		.pipe(gulpIf(isProd, babel({
-			presets: [
-				[
-					'@babel/preset-env',
-				],
-			],
-		})))
-		.pipe(gulpIf(isProd, terser()))
+		// .pipe(gulpIf(isProd, babel({
+		// 	presets: [
+		// 		[
+		// 			'@babel/preset-env'
+		// 		]
+		// 	],
+		// })))
+		// .pipe(gulpIf(isProd, terser()))
 		.pipe(gulp.dest(config.build + config.js.dest))
 		.pipe(gulpIf(isSync, browserSync.stream()));
 }
