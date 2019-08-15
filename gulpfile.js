@@ -162,9 +162,7 @@ function watch() {
 }
 
 // Build for production
-let build = gulp.series(clear, copyFavicon, fonts, js,
-    gulp.parallel(html, img, css)
-);
+let build = gulp.series(clear, copyFavicon, fonts, gulp.parallel(html, img, css, js));
 
 // single functions
 gulp.task('copyFavicon', copyFavicon);
