@@ -132,7 +132,7 @@ searchForm.addEventListener("submit", (event) => {
                     if (searchingResultsData.length === 0) {
                         movies.innerHTML = `
                           <div class="text-info">
-                            <p>По вашему запросу ничего не найдено!!!</p>
+                            <p>По вашему запросу ничего не найдено!</p>
                             <p>Попробуйте изменить поисковый запрос.</p>
                           </div>`;
                     } else {

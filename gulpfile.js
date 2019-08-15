@@ -43,7 +43,7 @@ let config = {
     },
     js: {
         src: '/js',
-        watch: '/js/*.js',
+        watch: '/js/main.js',
         dest: '/js'
     },
     browserslist: [
@@ -135,6 +135,7 @@ function js() {
             "presets": [babelPresetEnv]
         })))
         .pipe(gulpIf(isProd, terser()))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.build + config.js.dest))
         .pipe(gulpIf(isSync, browserSync.stream()));
 }
@@ -149,16 +150,14 @@ function clear() {
 function watch() {
     if (isSync) {
         browserSync.init({
-            server: {
-                baseDir: config.build
-            },
+            server: config.build,
             // tunnel: true
         });
     }
 
     gulp.watch(config.src + config.html.src, html);
     gulp.watch(config.src + config.css.watch, css);
-    gulp.watch(config.src + config.js.watch, js);
+    gulp.watch(config.src + config.js.watch, js).on('change', browserSync.reload);
 }
 
 // Build for production
