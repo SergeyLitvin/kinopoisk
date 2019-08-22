@@ -87,13 +87,13 @@ function img() {
 // Copy favicon
 function copyFavicon() {
     return gulp.src(config.src + 'favicon.ico')
-        .pipe(gulp.dest(config.build))
+        .pipe(gulp.dest(config.build));
 }
 
 // Copy fonts
 function fonts() {
     return gulp.src(config.src + config.fonts.src)
-        .pipe(gulp.dest(config.build + config.fonts.dest))
+        .pipe(gulp.dest(config.build + config.fonts.dest));
 }
 
 // Build css
