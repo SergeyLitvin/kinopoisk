@@ -102,7 +102,7 @@ function renderData(data) {
           <h1>${nameEl}</h1>
           <img class="img-responsive" src="${poster}">
           <div class="descript">
-            <strong class="year">Год: ${releaseDate}</strong> 
+            <strong class="year">Год: ${releaseDate.slice(0,4)}</strong> 
             <strong class="rating">Рейтинг: ${el.vote_average}</strong>  
           </div>
         </article>
