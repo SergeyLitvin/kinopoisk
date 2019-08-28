@@ -1,9 +1,15 @@
 /* Imports */
-@import "blocks/reset.less";
-@import "blocks/variables.less";
-@import "blocks/grid.less";
-@import "blocks/fonts.less";
-@import "blocks/mixins.less";
+@import "libs/reset.less";
+@import "libs/variables.less";
+@import "libs/smart-grid.less";
+@import "libs/fonts.less";
+@import "libs/mixins.less";
+@import "libs/preloader.less";
+
+
+@import "blocks/header.less";
+@import "blocks/main.less";
+@import "blocks/footer.less";
 
 /* Basic styles */
 html,
@@ -14,148 +20,12 @@ body {
     line-height: 150%;
 }
 
+header,
+main,
+footer {
+    position: relative;
+}
+
 .container {
-    .container();
+    .wrapper();
 }
-
-header {
-    text-align: center;
-}
-
-.navbar {
-    margin: 3rem;
-}
-
-.navbar a {
-    color: @blue;
-    font-size: 3rem;
-    text-decoration: none;
-}
-
-.search-block {
-    max-width: 600px;
-    margin: 0 auto;
-
-    h3 {
-        font-family: 'Ubuntu Light';
-        font-size: 1.2rem;
-        padding: 1rem;
-    }
-}
-
-.search-form {
-    display: flex;
-    justify-content: space-between;
-    background: @white;
-    border: 1px solid @blue;
-    border-radius: 5px;
-    padding: 5px;
-
-    input[type='search'] {
-        border: none;
-        border-radius: 5px;
-        width: 100%;
-        padding-left: 10px;
-
-        &:focus {
-            border: none;
-            outline: none;
-            background-color: @white;
-        }
-    }
-
-    button {
-        border: none;
-        background: #fff;
-        border-radius: 5px;
-
-        &:focus {
-            outline: none;
-        }
-
-        img {
-            width: 32px;
-            height: 32px;
-        }
-    }
-}
-
-.movies-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    box-sizing: border-box;
-}
-
-.card-films {
-    width: 25%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-
-    h1 {
-        font-size: 24px;
-    }
-}
-
-.descript {
-    margin-top: auto;
-    padding: 10px 0;
-}
-
-/* CSS Preloader */
-
-.loading {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: calc(50% - 30px);
-    width: 150px;
-    height: 40px;
-    margin: -40px 0 0 -40px;
-    background: white;
-    filter: contrast(20);
-
-    .dot {
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        top: 12px;
-        left: 15px;
-        filter: blur(4px);
-        background: #000;
-        border-radius: 50%;
-        transform: translateX(-25px);
-        animation: dot 2.8s infinite;
-    }
-
-    .dots {
-        transform: translateX(0);
-        margin-top: 12px;
-        margin-left: 31px;
-        animation: dots 2.8s infinite;
-    }
-
-    span {
-        display: block;
-        float: left;
-        width: 16px;
-        height: 16px;
-        margin-left: 16px;
-        filter: blur(4px);
-        background: #000;
-        border-radius: 50%;
-    }
-}
-
-@keyframes dot {
-  50% {
-    transform: translateX(96px);
-  }
-}
-@keyframes dots {
-  50% {
-    transform: translateX(-31px);
-  }
-}
-

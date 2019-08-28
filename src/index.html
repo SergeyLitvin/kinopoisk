@@ -14,19 +14,33 @@
         <div class="container">
             <nav class="navbar">
                 <a href="index.html" class="navbar-brand">
-                    Movie collection</a>
+                    Kinopoisk</a>
             </nav>
         </div>
         <div class="container">
             <div class="search-block">
-                <h3>Найди любимый фильм и сохрани в свою коллекцию</h3>
+                <h3>Найди любимый фильм</h3>
                 <form action="" id="search-form" class="search-form">
                     <input type="search" class="form-control" id="searchText" placeholder="Введите название фильма...">
                     <button type="submit">
                         <img src="/img/search-icon.png" alt="search">
                     </button>
                 </form>
+                <article class="trendings">
+                    <h4>Популярные:</h4>
+                    <ul class="period">
+                        <li data-time="day" class="selected">За сегодня</li>
+                        <li data-time="week">За неделю</li>
+                    </ul>
+                    <ul class="media-type">
+                        <li data-media-type="all" class="selected">Все</li>
+                        <li data-media-type="movie">Фильмы</li>
+                        <li data-media-type="tv">TV шоу</li>
+                        <li data-media-type="person">Персоны</li>
+                    </ul>
+                </article>
             </div>
+
         </div>
     </header>
     <main>
@@ -35,15 +49,18 @@
                 <div class="loading">
                     <span class="dot"></span>
                     <div class="dots">
-                      <span></span>
-                      <span></span>
-                      <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     </main>
 
+    <footer class="footer">
+        <p>© Sergey Litvin. All rights reserved.</p>
+    </footer>
 
     <script src="js/main.js" async></script>
 </body>

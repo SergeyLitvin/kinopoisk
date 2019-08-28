@@ -1,4 +1,8 @@
 .idea/*
 .vscode/*
 node_modules/*
+<<<<<<< HEAD
 build/**.*
+=======
+build/**/*
+>>>>>>> 30fd3014a00ef4af42b7a38a09563095aebb0249
