@@ -71,12 +71,14 @@ function buildTrendingLink(period = "day", mediaType = "all") {
   periodTrendings.forEach((item) => {
     if (item.className === "selected") {
       urlConfig.trendingLink.period = item.attributes["data-time"].nodeValue;
+      console.log(urlConfig.trendingLink.period);
     }
   });
 
   mediaTypeTrendings.forEach((item) => {
     if (item.className === "selected") {
       urlConfig.trendingLink.mediaType = item.attributes["data-media-type"].nodeValue;
+      console.log(urlConfig.trendingLink.mediaType);
     }
   });
 
@@ -86,7 +88,9 @@ function buildTrendingLink(period = "day", mediaType = "all") {
   return trendingsRequestUrl;
 }
 
-/* ==================================================s
+
+
+/* ==================================================
 Generating html from the data array
 ================================================== */
 function renderData(data) {
